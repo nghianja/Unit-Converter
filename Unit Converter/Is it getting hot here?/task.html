@@ -1,0 +1,94 @@
+<h2 style="text-align: center;">Description</h2>
+
+<p>Let's rewrite our program to use enums. Have you ever noticed that<strong>,</strong> in all probability, you have a lot of checks on the string representation of measurement types? Especially that each measurement type has at least three different string representations.</p>
+
+<p>So, if you represent each measurement type by a special enum value, the code becomes more clean and readable, and since comparing enum values is much faster than comparing strings, the code is processed faster.</p>
+
+<p>Also, let's introduce the main temperature measurement types that are used today:<strong> </strong>degrees Celsius (C), degrees Fahrenheit (F) and Kelvins (K).</p>
+
+<p>Converting these measurement types among each other is somewhat different than comparing the length measurement types and the weight measurement types: 0 degrees Kelvin is not equal to 0 degrees Celsius or 0 degrees Fahrenheit, and 0 degrees Celsius is not equal to 0 degrees Fahrenheit.</p>
+
+<p>Below are all the formulas for converting one temperature measurement type to another.<strong> </strong>In these, the letter <span class="math-tex">\( K \)</span> means degrees Kelvin, the letter <span class="math-tex">\( C \)</span> means degrees Celsius, and the letter <span class="math-tex">\( F \)</span> means degrees Fahrenheit.</p>
+
+<p>To convert between degrees Celsius and degrees Fahrenheit you can use these formulas:</p>
+
+<p><span class="math-tex">\( C = (F - 32) * 5 / 9 \)</span></p>
+
+<p><span class="math-tex">\( F = C * 9 / 5 + 32 \)</span></p>
+
+<p>To convert between Kelvins and degrees Celsius you can use these formulas:</p>
+
+<p><span class="math-tex">\( K = C + 273.15 \)</span></p>
+
+<p><span class="math-tex">\( C = K - 273.15 \)</span></p>
+
+<p>To convert between degrees Fahrenheit and Kelvins you can use these formulas:</p>
+
+<p><span class="math-tex">\( F = K * 9 / 5 - 459.67 \)</span></p>
+
+<p><span class="math-tex">\( K = (F + 459.67) * 5 / 9 \)</span></p>
+
+<p>To distinguish<strong> </strong>these measure types, you need to follow these rules:</p>
+
+<ol>
+	<li>For degrees Celsius, the user can input "degree Celsius", "degrees Celsius", "celsius" "dc", or "c".</li>
+	<li>For degrees Fahrenheit, the user can input "degree Fahrenheit", "degrees Fahrenheit", "fahrenheit", "df", or "f".</li>
+	<li>For Kelvins, the user can input, "Kelvin", "Kelvins", or "k".</li>
+</ol>
+
+<p>Also, in this stage, you need to output error messages when a conversion between two measure types is not allowed (for example, meters to kilograms), and in cases when one of the measure types is not recognized.</p>
+
+<p>If you cannot determine the measurement type then output "???" instead (obviously, it would be inside an error message). Don't forget that in the error message both measurement types should be written in the plural, not in the singular.</p>
+
+<p>In the user wants to convert <strong>weight</strong> from one to another but then inputted a negative amount you should print a message <code>Weight shouldn't be negative</code>. Same should be true for <strong>lengths</strong>, a message should be <code>Length shouldn't be negative</code>.</p>
+
+<p>What to do if a query is bad? Handle this! Try to parse the following parts:</p>
+
+<pre><code class="language-no-highlight">&lt;number&gt; +
+&lt;(unit name) or (degree + unit name) or (degrees + unit name)&gt; +
+&lt;random word like "to" or "in"&gt; +
+&lt;(unit name) or (degree + unit name) or (degrees + unit name)&gt;</code></pre>
+
+<p>If there is an error, output <code>Parse error</code>.</p>
+
+<h2 style="text-align: center;">Output examples</h2>
+
+<p>The examples are shown below:</p>
+
+<pre><code class="language-no-highlight">Enter what you want to convert (or exit): 1 degree Celsius to Kelvins
+1.0 degree Celsius is 274.15 Kelvins
+Enter what you want to convert (or exit): -272.15 dc to K
+-272.15 degrees Celsius is 1.0 Kelvin
+Enter what you want to convert (or exit): 1 kn to feet
+Conversion from ??? to feet is impossible
+Enter what you want to convert (or exit): 1 km to feet
+1.0 kilometer is 3280.839895013123 feet
+Enter what you want to convert (or exit): 3 pount to ounces
+Conversion from ??? to ounces is impossible
+Enter what you want to convert (or exit): 3 pound to ounces
+3.0 pounds is 47.99999999999999 ounces
+Enter what you want to convert (or exit): 3 kelvins to grams
+Conversion from Kelvins to grams is impossible
+Enter what you want to convert (or exit): 3 grams to meters
+Conversion from grams to meters is impossible
+Enter what you want to convert (or exit): exit</code></pre>
+
+<pre><code class="language-no-highlight">Enter what you want to convert (or exit): 1 F in K
+1.0 degree Fahrenheit is 255.92777777777778 Kelvins
+Enter what you want to convert (or exit): 1 K in F
+1.0 Kelvin is -457.87 degrees Fahrenheit
+Enter what you want to convert (or exit): 1 C in K
+1.0 degree Celsius is 274.15 Kelvins
+Enter what you want to convert (or exit): 1 K in C
+1.0 Kelvin is -272.15 degrees Celsius
+Enter what you want to convert (or exit): 1 F in C
+1.0 degree Fahrenheit is -17.22222222222222 degrees Celsius
+Enter what you want to convert (or exit): 1 C in F
+1.0 degree Celsius is 33.8 degrees Fahrenheit
+Enter what you want to convert (or exit): one boa in parrots
+Parse error
+Enter what you want to convert (or exit): please convert distance to the Moon to steps
+Parse error
+Enter what you want to convert (or exit): many things to improve!
+Parse error
+Enter what you want to convert (or exit): exit</code></pre>

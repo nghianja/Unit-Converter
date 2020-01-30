@@ -1,0 +1,50 @@
+<h2 style="text-align: center;">Description</h2>
+
+<p>In this stage, you will write a program that can convert a value with any measurement type to value with any other measurement type.</p>
+
+<p>Do not try to predefine all the possible conversion results; the smart way is to convert the input value to one predefined measurement type (for example, to meters) and then convert that same value with that same measurement type to a value with the output measurement type.</p>
+
+<p>Also, in this stage, the user should be able to convert values with any type of weight measurement.</p>
+
+<p>The conversion should follow these rules:</p>
+
+<ol>
+	<li>One gram should consist of 1 gram.</li>
+	<li>One kilogram should consist of 1000 grams.</li>
+	<li>One milligram should consist of 0.001 grams.</li>
+	<li>One pound should consist of 453.592 grams.</li>
+	<li>One ounce should consist of 28.3495 grams.</li>
+</ol>
+
+<p>The user should input a number, then a type of measurement. Then some random word (for example "in" or "to", but can be any word), and then the output measurement type. In addition to the above measurement types, the following types of measurement should be allowed:</p>
+
+<ol>
+	<li>For grams, the user can input "g", "gram", or "grams".</li>
+	<li>For kilograms, the user can input "kg", "kilogram", or "kilograms".</li>
+	<li>For milligrams, the user can input "mg", "milligram", or "milligrams".</li>
+	<li>For pounds, the user can input "lb", "pound", or "pounds".</li>
+	<li>For ounces, the user can input "oz", "ounce", or "ounces".</li>
+</ol>
+
+<p>Also, in this stage, you need to write an infinite cycle which stops only if the user types "exit".</p>
+
+<h2 style="text-align: center;">Output examples</h2>
+
+<p>The examples are shown below:</p>
+
+<pre><code class="language-no-highlight">Enter what you want to convert (or exit): 1 kg to ounces
+1.0 kilogram is 35.27399072294044 ounces
+Enter what you want to convert (or exit): 2 meters in yards
+2.0 meters is 2.1872265966754156 yards
+Enter what you want to convert (or exit): 1 pound in kg
+1.0 pound is 0.453592 kilograms
+Enter what you want to convert (or exit): exit</code></pre>
+
+<pre><code class="language-no-highlight">Enter what you want to convert (or exit): 1 oz to g
+1.0 ounce is 28.3495 grams
+Enter what you want to convert (or exit): 100 cm in meters
+100.0 centimeters is 1.0 meter
+Enter what you want to convert (or exit): 23.34 feet to in
+23.34 feet is 280.08 inches
+Enter what you want to convert (or exit): exit
+</code></pre>
