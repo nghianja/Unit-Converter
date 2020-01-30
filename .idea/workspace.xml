@@ -2,15 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6f0daaa7-ff44-42a9-be33-0869ac81f1e7" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Unit Converter/task/test/Authors.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Unit Converter/task/test/Task2Test.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Unit Converter/task/test/TestCaseHelpers.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Unit Converter/task/test/WordComparer.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.3.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.3.1/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unit Converter/Standard output/task-info.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/Unit Converter/Standard output/task-info.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Unit Converter/task/src/converter/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Unit Converter/task/src/converter/Main.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unit Converter/task/test/ConverterTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Unit Converter/task/test/ConverterTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,7 +46,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1580410860070</updated>
-      <workItem from="1580410866230" duration="589000" />
+      <workItem from="1580410866230" duration="1067000" />
     </task>
     <servers />
   </component>
