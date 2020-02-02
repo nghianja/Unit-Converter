@@ -1,121 +1,103 @@
 package converter
 
+import java.lang.Exception
 import java.util.Scanner
 
-fun convert(local: Double, fromUnit: String, toUnit: String) {
-    var lMeasure = ""
+enum class Measurement(val measure: String, val singular: String, val plural: String) {
+    M("Length", "meter", "meters"),
+    KM("Length", "kilometer", "kilometers"),
+    CM("Length", "centimeter", "centimeters"),
+    MM("Length", "millimeter", "millimeters"),
+    MI("Length", "mile", "miles"),
+    YD("Length", "yard", "yards"),
+    FT("Length", "foot", "feet"),
+    IN("Length", "inch", "inches"),
+    G("Weight", "gram", "grams"),
+    KG("Weight", "kilogram", "kilograms"),
+    MG("Weight", "milligram", "milligrams"),
+    LB("Weight", "pound", "pounds"),
+    OZ("Weight", "ounce", "ounces"),
+    C("Temperature", "degree Celsius", "degrees Celsius"),
+    F("Temperature", "degree Fahrenheit", "degrees Fahrenheit"),
+    K("Temperature", "Kelvin", "Kelvins"),
+    UK("Unknown", "???", "???");
+
+    companion object {
+        fun getMeasurement(name: String): Measurement {
+            val lowerCaseName = name.toLowerCase()
+            for (enum in Measurement.values()) {
+                if (enum.name.toLowerCase() == lowerCaseName ||
+                    enum.singular.toLowerCase() == lowerCaseName ||
+                    enum.plural.toLowerCase() == lowerCaseName ||
+                    (("celsius" == lowerCaseName || "dc" == lowerCaseName) && enum.name == "C") ||
+                    (("fahrenheit" == lowerCaseName || "df" == lowerCaseName) && enum.name == "F")) {
+                    return enum
+                }
+            }
+            return UK
+        }
+    }
+
+    fun getUnits(value: Double): String {
+        return if (value == 1.0) singular else plural
+    }
+}
+
+fun isConvertible(local: Double, from: Measurement, to: Measurement): Boolean {
+    if (from.measure != to.measure || from == Measurement.UK) {
+        println("Conversion from ${from.plural} to ${to.plural} is impossible")
+        return false
+    }
+    if (local < 0 && (from.measure == "Length" || from.measure == "Weight")) {
+        println("${from.measure} shouldn't be negative")
+        return false
+    }
+    return true
+}
+
+fun convert(local: Double, from: Measurement, to: Measurement) {
+    if (!isConvertible(local, from, to)) return
     var base = 0.0
     var converted = 0.0
-    var cMeasure = ""
-    when (fromUnit) {
-        "m", "meter", "meters" -> {
-            lMeasure = if (local == 1.0) "meter" else "meters"
-            base = local
-        }
-        "km", "kilometer", "kilometers" -> {
-            lMeasure = if (local == 1.0) "kilometer" else "kilometers"
-            base = local * 1000
-        }
-        "cm", "centimeter", "centimeters" -> {
-            lMeasure = if (local == 1.0) "centimeter" else "centimeters"
-            base = local * 0.01
-        }
-        "mm", "millimeter", "millimeters" -> {
-            lMeasure = if (local == 1.0) "millimeter" else "millimeters"
-            base = local * 0.001
-        }
-        "mi", "mile", "miles" -> {
-            lMeasure = if (local == 1.0) "mile" else "miles"
-            base = local * 1609.35
-        }
-        "yd", "yard", "yards" -> {
-            lMeasure = if (local == 1.0) "yard" else "yards"
-            base = local * 0.9144
-        }
-        "ft", "foot", "feet" -> {
-            lMeasure = if (local == 1.0) "foot" else "feet"
-            base = local * 0.3048
-        }
-        "in", "inch", "inches" -> {
-            lMeasure = if (local == 1.0) "inch" else "inches"
-            base = local * 0.0254
-        }
-        "g", "gram", "grams" -> {
-            lMeasure = if (local == 1.0) "gram" else "grams"
-            base = local
-        }
-        "kg", "kilogram", "kilograms" ->  {
-            lMeasure = if (local == 1.0) "kilogram" else "kilograms"
-            base = local * 1000
-        }
-        "mg", "milligram", "milligrams" -> {
-            lMeasure = if (local == 1.0) "milligram" else "milligrams"
-            base = local * 0.001
-        }
-        "lb", "pound", "pounds" -> {
-            lMeasure = if (local == 1.0) "pound" else "pounds"
-            base = local * 453.592
-        }
-        "oz", "ounce", "ounces" -> {
-            lMeasure = if (local == 1.0) "ounce" else "ounces"
-            base = local * 28.3495
-        }
+    when (from) {
+        Measurement.M -> base = local
+        Measurement.KM -> base = local * 1000
+        Measurement.CM -> base = local * 0.01
+        Measurement.MM -> base = local * 0.001
+        Measurement.MI -> base = local * 1609.35
+        Measurement.YD -> base = local * 0.9144
+        Measurement.FT -> base = local * 0.3048
+        Measurement.IN -> base = local * 0.0254
+        Measurement.G -> base = local
+        Measurement.KG -> base = local * 1000
+        Measurement.MG -> base = local * 0.001
+        Measurement.LB -> base = local * 453.592
+        Measurement.OZ -> base = local * 28.3495
+        Measurement.C -> base = local
+        Measurement.F -> base = (local - 32) * 5 / 9
+        Measurement.K -> base = local - 273.15
+        Measurement.UK -> base = 0.0
     }
-    when (toUnit) {
-        "m", "meter", "meters" -> {
-            converted = base
-            cMeasure = if (converted == 1.0) "meter" else "meters"
-        }
-        "km", "kilometer", "kilometers" -> {
-            converted = base * 0.001
-            cMeasure = if (converted == 1.0) "kilometer" else "kilometers"
-        }
-        "cm", "centimeter", "centimeters" -> {
-            converted = base * 100
-            cMeasure = if (converted == 1.0) "centimeter" else "centimeters"
-        }
-        "mm", "millimeter", "millimeters" -> {
-            converted = base * 1000
-            cMeasure = if (converted == 1.0) "millimeter" else "millimeters"
-        }
-        "mi", "mile", "miles" -> {
-            converted = base / 1609.35
-            cMeasure = if (converted == 1.0) "mile" else "miles"
-        }
-        "yd", "yard", "yards" -> {
-            converted = base / 0.9144
-            cMeasure = if (converted == 1.0) "yard" else "yards"
-        }
-        "ft", "foot", "feet" -> {
-            converted = base / 0.3048
-            cMeasure = if (converted == 1.0) "foot" else "feet"
-        }
-        "in", "inch", "inches" -> {
-            converted = base / 0.0254
-            cMeasure = if (converted == 1.0) "inch" else "inches"
-        }
-        "g", "gram", "grams" -> {
-            converted = base
-            cMeasure = if (converted == 1.0) "gram" else "grams"
-        }
-        "kg", "kilogram", "kilograms" ->  {
-            converted = base / 1000
-            cMeasure = if (converted == 1.0) "kilogram" else "kilograms"
-        }
-        "mg", "milligram", "milligrams" -> {
-            converted = base * 1000
-            cMeasure = if (converted == 1.0) "milligram" else "milligrams"
-        }
-        "lb", "pound", "pounds" -> {
-            converted = base / 453.592
-            cMeasure = if (converted == 1.0) "pound" else "pounds"
-        }
-        "oz", "ounce", "ounces" -> {
-            converted = base / 28.3495
-            cMeasure = if (converted == 1.0) "ounce" else "ounces"
-        }
+    when (to) {
+        Measurement.M -> converted = base
+        Measurement.KM -> converted = base / 1000
+        Measurement.CM -> converted = base / 0.01
+        Measurement.MM -> converted = base / 0.001
+        Measurement.MI -> converted = base / 1609.35
+        Measurement.YD -> converted = base / 0.9144
+        Measurement.FT -> converted = base / 0.3048
+        Measurement.IN -> converted = base / 0.0254
+        Measurement.G -> converted = base
+        Measurement.KG -> converted = base / 1000
+        Measurement.MG -> converted = base / 0.001
+        Measurement.LB -> converted = base / 453.592
+        Measurement.OZ -> converted = base / 28.3495
+        Measurement.C -> converted = base
+        Measurement.F -> converted = base * 9 / 5 + 32
+        Measurement.K -> converted = base + 273.15
+        Measurement.UK -> converted = 0.0
     }
-    println("$local $lMeasure is $converted $cMeasure")
+    println("$local ${from.getUnits(local)} is $converted ${to.getUnits(converted)}")
 }
 
 fun main() {
@@ -124,6 +106,21 @@ fun main() {
         print("Enter what you want to convert (or exit): ")
         val input = scanner.nextLine().split(" ")
         if (input[0] == "exit") break
-        convert(input[0].toDouble(), input[1].toLowerCase(), input[3].toLowerCase())
+        try {
+            val iterator = input.iterator()
+            val number = iterator.next().toDouble()
+            var from = iterator.next().toLowerCase()
+            if (from == "degree" || from == "degrees") {
+                from = from + " " + iterator.next()
+            }
+            val random = iterator.next()
+            var to = iterator.next().toLowerCase()
+            if (to == "degree" || to == "degrees") {
+                to = to + " " + iterator.next()
+            }
+            convert(number, Measurement.getMeasurement(from), Measurement.getMeasurement(to))
+        } catch (e: Exception) {
+            println("Parse error")
+        }
     }
 }
